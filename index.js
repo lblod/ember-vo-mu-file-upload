@@ -1,5 +1,5 @@
 'use strict';
 
 module.exports = {
-  name: 'ember-vo-file-upload'
+  name: '@lblod/ember-vo-file-upload'
 };

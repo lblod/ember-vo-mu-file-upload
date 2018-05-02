@@ -1,4 +1,4 @@
-ember-vo-file-upload
+@lblod/ember-vo-file-upload
 ==============================================================================
 
 [Short description of the addon.]
@@ -7,7 +7,7 @@ Installation
 ------------------------------------------------------------------------------
 
 ```
-ember install ember-vo-file-upload
+ember install @lblod/ember-vo-file-upload
 ```
 
 
