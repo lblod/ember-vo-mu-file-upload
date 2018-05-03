@@ -1,4 +1,4 @@
-@lblod/ember-vo-file-upload
+@lblod/ember-vo-mu-file-upload
 ==============================================================================
 
 [Short description of the addon.]
@@ -7,7 +7,7 @@ Installation
 ------------------------------------------------------------------------------
 
 ```
-ember install @lblod/ember-vo-file-upload
+ember install @lblod/ember-vo-mu-file-upload
 ```
 
 
