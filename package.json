@@ -20,8 +20,9 @@
   },
   "dependencies": {
     "@lblod/ember-vo-webuniversum": "^0.11.5",
-    "ember-cli-htmlbars": "^2.0.1",
     "ember-cli-babel": "^6.6.0",
+    "ember-cli-htmlbars": "^2.0.1",
+    "ember-cli-update": "^0.21.3",
     "ember-file-upload": "^2.4.4"
   },
   "devDependencies": {
