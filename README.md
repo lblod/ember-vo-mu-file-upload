@@ -14,7 +14,8 @@ ember install @lblod/ember-vo-mu-file-upload
 Usage
 ------------------------------------------------------------------------------
 
-[Longer description of how to use the addon in apps.]
+A VO-Webuniversum styled file-upload addon, based on mu-file-upload (to-be) addon.
+Assumes mu.semte.ch backend (mu-cl-resources and file-service)
 
 
 Contributing
@@ -26,18 +27,7 @@ Contributing
 * `cd ember-vo-file-upload`
 * `npm install`
 
-### Linting
-
-* `npm run lint:js`
-* `npm run lint:js -- --fix`
-
-### Running tests
-
-* `ember test` – Runs the test suite on the current Ember version
-* `ember test --server` – Runs the test suite in "watch mode"
-* `npm test` – Runs `ember try:each` to test your addon against multiple Ember versions
-
-### Running the dummy application
+### Running the dummy application (TODO)
 
 * `ember serve`
 * Visit the dummy application at [http://localhost:4200](http://localhost:4200).

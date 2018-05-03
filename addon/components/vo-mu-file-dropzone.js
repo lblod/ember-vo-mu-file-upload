@@ -9,7 +9,7 @@ export default Component.extend({
   layout,
   fileQueue: service(),
   store: service(),
-  uploadingMsg: computed('fileQueue.files.length', 'fileQueue.progress', function(){
+  uploadingMsg: computed('fileQueue.{files.length,progress}', function(){
     return `Bezit met het opladen van ${this.get('fileQueue.files.length')} bestand(en). (${this.get('fileQueue.progress')}%)`;
   }),
   multiple: true,
