@@ -57,7 +57,7 @@ export default Component.extend({
 
   hasValidationErrors(file){
     if(file.size > this.get('maxFileSizeMB')*Math.pow(1024, 2)){
-      this.get('uploadErrorData').pushObject({filename: file.get('name'), error: 'File too large'});
+      this.get('uploadErrorData').pushObject({filename: file.get('name'), error: `Bestand is te groot (max ${this.maxFileSizeMB} MB)`});
       this.removeFileFromQueue(file);
       return true;
     }
