@@ -18,7 +18,7 @@ export default Component.extend({
   dataUploadAllowDrop:true,
   accept: 'application/*,image/*,video/*,audio/*,text/*',
   queueName: 'fileUploads',
-  title: 'Bestanden Toevoegen',
+  title: 'Bestanden toevoegen',
   helpTextDragDrop: 'Sleep de bestanden naar hier om toe te voegen',
   helpTextDrop: 'Laat de bestanden hier los om op te laden',
   helpTextFileNotSupported: 'Dit bestandsformaat wordt niet ondersteund.',
