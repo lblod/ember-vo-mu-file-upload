@@ -22,36 +22,28 @@ export default Component.extend({
   helpTextDragDrop: 'Sleep de bestanden naar hier om toe te voegen',
   helpTextDrop: 'Laat de bestanden hier los om op te laden',
   helpTextFileNotSupported: 'Dit bestandsformaat wordt niet ondersteund.',
-  maxConcurrentFiles: 3,
   endPoint: '/file-service/files',
   uploadErrorData: null,
   hasErrors: computed('uploadErrorData.[]', function(){
     return this.get('uploadErrorData').length > 0;
   }),
-  uploadFileTask: null,
   maxFileSizeMB: 20,
 
-  initUploadFileTask(){
-    let uploadTask = task(function * (file){
-      try {
-        let response = yield file.upload(this.get('endPoint'), {'Content-Type': 'multipart/form-data'});
-
-        let uploadedFile = yield this.get('store').findRecord('file', response.body.data.id);
-
-        return uploadedFile;
-      }
-      catch(e) {
-        this.get('uploadErrorData').pushObject({filename: file.get('name')});
-        this.removeFileFromQueue(file);
-      }
-    }).maxConcurrency(this.get('maxConcurrentFiles')).enqueue();
-
-    this.set('uploadFileTask', uploadTask);
-  },
+  uploadFileTask: task(function * (file){
+    try {
+      const response = yield file.upload(this.endPoint, {'Content-Type': 'multipart/form-data'});
+      const uploadedFile = yield this.store.findRecord('file', response.body.data.id);
+      return uploadedFile;
+    }
+    catch(e) {
+      this.get('uploadErrorData').pushObject({filename: file.get('name')});
+      this.removeFileFromQueue(file);
+      return null;
+    }
+  }).maxConcurrency(3).enqueue(),
 
   init(){
     this._super(...arguments);
-    this.initUploadFileTask();
     this.set('uploadErrorData', A());
   },
 
