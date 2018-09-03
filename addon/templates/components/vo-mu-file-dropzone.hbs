@@ -1,4 +1,4 @@
-{{#file-dropzone class="upload__element" ondrop=(action "onDrop") name=queueName as |dropzone queue|}}
+{{#file-dropzone class="upload__element is-required" ondrop=(action "onDrop") name=queueName as |dropzone queue|}}
   {{#if dropzone.active}}
     <label class="upload__element__label">
       <i class="vi vi-paperclip"></i>
