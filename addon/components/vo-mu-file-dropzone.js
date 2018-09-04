@@ -10,7 +10,7 @@ export default Component.extend({
   fileQueue: service(),
   store: service(),
   uploadingMsg: computed('fileQueue.{files.length,progress}', function(){
-    return `Bezit met het opladen van ${this.get('fileQueue.files.length')} bestand(en). (${this.get('fileQueue.progress')}%)`;
+    return `Bezig met het opladen van ${this.get('fileQueue.files.length')} bestand(en). (${this.get('fileQueue.progress')}%)`;
   }),
   multiple: true,
   classNames: ['upload js-upload js-upload-bound'],
