@@ -16,7 +16,6 @@ export default Component.extend({
   classNames: ['upload js-upload js-upload-bound'],
   attributeBindings:['dataUploadAllowDrop:data-upload-allow-drop'],
   dataUploadAllowDrop:true,
-  accept: 'application/*,image/*,video/*,audio/*,text/*',
   queueName: 'fileUploads',
   title: 'Bestanden toevoegen',
   helpTextDragDrop: 'Sleep de bestanden naar hier om toe te voegen',
