@@ -28,7 +28,6 @@ Contributing
 * `npm install`
 
 ### Running the dummy application (TODO)
-
 * `ember serve`
 * Visit the dummy application at [http://localhost:4200](http://localhost:4200).
 
