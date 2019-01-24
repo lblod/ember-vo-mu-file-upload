@@ -5,6 +5,7 @@ export default Component.extend({
   layout,
   classNames: ["upload__files upload__files--has-files"],
   active: true,
+  downloadable: true,
 
   downloadLink: computed('file', function(){
     return `/files/${this.file.get('id')}/download?name=${this.file.get('filename')}`;
