@@ -7,10 +7,6 @@ export default Component.extend({
   active: true,
   downloadable: true,
 
-  downloadLink: computed('file', function(){
-    return `/files/${this.file.get('id')}/download?name=${this.file.get('filename')}`;
-  }),
-
   actions: {
     delete(){
       this.get('onDelete')(this.get('file'));

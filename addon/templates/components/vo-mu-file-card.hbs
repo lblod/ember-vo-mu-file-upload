@@ -9,10 +9,10 @@
       <span class="upload__file__size">({{file.humanReadableSize}})</span>
     </p>
     {{#if downloadable}}
-    <small>
-      <a class="link--icon" href="{{downloadLink}}" download="{{file.filename}}">
-        <i class="fa fa-cloud-download"></i>Download bestand</a>
-    </small>
+      <small>
+        <a class="link--icon" href="{{file.downloadLink}}" download="{{file.filename}}">
+          <i class="fa fa-cloud-download"></i>Download bestand</a>
+      </small>
     {{/if}}
   </div>
 </div>
