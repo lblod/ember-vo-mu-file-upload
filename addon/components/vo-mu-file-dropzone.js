@@ -74,8 +74,9 @@ export default Component.extend({
         return;
       let uploadedFile = await this.get('uploadFileTask').perform(file);
 
+      const filesQueueInfo = { isQueueEmpty: this.get('uploadFileTask').state === 'idle' };
       if(uploadedFile)
-        this.get('onFinishUpload')(uploadedFile);
+        this.get('onFinishUpload')(uploadedFile, filesQueueInfo);
     },
     onDrop(){
       this.resetErrors();
