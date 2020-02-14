@@ -29,6 +29,7 @@ export default Component.extend({
   maxFileSizeMB: 20,
 
   uploadFileTask: task(function * (file){
+    this.notifyQueueUpdate();
     try {
       const response = yield file.upload(this.endPoint, {'Content-Type': 'multipart/form-data'});
       const uploadedFile = yield this.store.findRecord('file', response.body.data.id);
@@ -68,15 +69,27 @@ export default Component.extend({
     q.remove(file);
   },
 
+  calculateQueueInfo(){
+    const filesQueueInfo = { isQueueEmpty: this.get('uploadFileTask').state === 'idle' };
+    return filesQueueInfo;
+  },
+
+  notifyQueueUpdate(){
+    if(this.onQueueUpdate){
+      this.onQueueUpdate(this.calculateQueueInfo());
+    }
+  },
+
   actions: {
     async upload(file){
       if(this.hasValidationErrors(file))
         return;
       let uploadedFile = await this.get('uploadFileTask').perform(file);
 
-      const filesQueueInfo = { isQueueEmpty: this.get('uploadFileTask').state === 'idle' };
+      this.notifyQueueUpdate();
+
       if(uploadedFile)
-        this.get('onFinishUpload')(uploadedFile, filesQueueInfo);
+        this.get('onFinishUpload')(uploadedFile, this.calculateQueueInfo());
     },
     onDrop(){
       this.resetErrors();
