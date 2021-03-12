@@ -4,6 +4,7 @@ import { inject as service } from '@ember/service';
 import { computed } from '@ember/object';
 import { task } from 'ember-concurrency';
 import { A } from '@ember/array';
+import { v4 } from "ember-uuid";
 
 export default Component.extend({
   layout,
@@ -16,7 +17,6 @@ export default Component.extend({
   classNames: ['upload js-upload js-upload-bound'],
   attributeBindings:['dataUploadAllowDrop:data-upload-allow-drop'],
   dataUploadAllowDrop:true,
-  queueName: 'fileUploads',
   title: 'Bestanden toevoegen',
   helpTextDragDrop: 'Sleep de bestanden naar hier om toe te voegen',
   helpTextDrop: 'Laat de bestanden hier los om op te laden',
@@ -45,6 +45,7 @@ export default Component.extend({
   init(){
     this._super(...arguments);
     this.set('uploadErrorData', A());
+    this.set('queueName', `${v4()}-fileUploads`);
   },
 
   hasValidationErrors(file){
