@@ -9,7 +9,7 @@ export default Component.extend({
 
   actions: {
     delete(){
-      this.get('onDelete')(this.get('file'));
+      this.onDelete(this.file);
     }
   }
 });

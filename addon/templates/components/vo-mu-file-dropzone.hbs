@@ -1,4 +1,4 @@
-{{#file-dropzone class="upload__element" ondrop=(action "onDrop") name=queueName as |dropzone queue|}}
+<FileDropzone @class="upload__element" @ondrop={{action "onDrop"}} @name={{queueName}} as |dropzone queue|>
   {{#if dropzone.active}}
     <label class="upload__element__label">
       <i class="vi vi-paperclip"></i>
@@ -17,17 +17,13 @@
       {{#if dropzone.supported}}
         <small>{{helpTextDragDrop}}</small>
       {{/if}}
-      {{#file-upload name=queueName
-         accept=accept
-         multiple=multiple
-         onfileadd=(action "upload")
-      }}
-      {{/file-upload}}
+      <FileUpload @name={{queueName}} @accept={{accept}} @multiple={{multiple}} @onfileadd={{action "upload"}}>
+      </FileUpload>
     </label>
   {{/if}}
-{{/file-dropzone}}
+</FileDropzone>
 {{#if hasErrors}}
-  {{#wu-alert isError=true}}
+  <WuAlert @isError={{true}}>
     {{#each uploadErrorData as |data|}}
       <li> Fout bij het opladen van {{data.filename}}.
         {{#if data.error}}
@@ -35,5 +31,5 @@
         {{/if}}
       </li>
     {{/each}}
-  {{/wu-alert}}
+  </WuAlert>
 {{/if}}

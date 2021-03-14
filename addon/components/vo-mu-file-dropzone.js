@@ -24,7 +24,7 @@ export default Component.extend({
   endPoint: '/file-service/files',
   uploadErrorData: null,
   hasErrors: computed('uploadErrorData.[]', function(){
-    return this.get('uploadErrorData').length > 0;
+    return this.uploadErrorData.length > 0;
   }),
   maxFileSizeMB: 20,
 
@@ -36,7 +36,7 @@ export default Component.extend({
       return uploadedFile;
     }
     catch(e) {
-      this.get('uploadErrorData').pushObject({filename: file.get('name')});
+      this.uploadErrorData.pushObject({filename: file.get('name')});
       this.removeFileFromQueue(file);
       return null;
     }
@@ -49,8 +49,8 @@ export default Component.extend({
   },
 
   hasValidationErrors(file){
-    if(file.size > this.get('maxFileSizeMB')*Math.pow(1024, 2)){
-      this.get('uploadErrorData').pushObject({filename: file.get('name'), error: `Bestand is te groot (max ${this.maxFileSizeMB} MB)`});
+    if(file.size > this.maxFileSizeMB*Math.pow(1024, 2)){
+      this.uploadErrorData.pushObject({filename: file.get('name'), error: `Bestand is te groot (max ${this.maxFileSizeMB} MB)`});
       this.removeFileFromQueue(file);
       return true;
     }
@@ -66,12 +66,12 @@ export default Component.extend({
   },
 
   removeFileFromQueue(file){
-    let q = this.get('fileQueue').queues.find(q => q.get('name') === this.get('queueName'));
+    let q = this.fileQueue.queues.find(q => q.get('name') === this.queueName);
     q.remove(file);
   },
 
   calculateQueueInfo(){
-    const filesQueueInfo = { isQueueEmpty: this.get('uploadFileTask').state === 'idle' };
+    const filesQueueInfo = { isQueueEmpty: this.uploadFileTask.state === 'idle' };
     return filesQueueInfo;
   },
 
@@ -85,12 +85,12 @@ export default Component.extend({
     async upload(file){
       if(this.hasValidationErrors(file))
         return;
-      let uploadedFile = await this.get('uploadFileTask').perform(file);
+      let uploadedFile = await this.uploadFileTask.perform(file);
 
       this.notifyQueueUpdate();
 
       if(uploadedFile)
-        this.get('onFinishUpload')(uploadedFile, this.calculateQueueInfo());
+        this.onFinishUpload(uploadedFile, this.calculateQueueInfo());
     },
     onDrop(){
       this.resetErrors();
