@@ -1,0 +1,37 @@
+<div class="upload js-upload js-upload-bound" data-upload-allow-drop={{if @dataUploadAllowDrop "" "false"}}>
+  <FileDropzone @class="upload__element" @ondrop={{fn this.onDrop}} @name={{this.queueName}} as |dropzone queue|>
+    {{#if dropzone.active}}
+      <label class="upload__element__label">
+        <i class="vi vi-paperclip"></i>
+        {{#if dropzone.valid}}
+          <small>{{this.helpTextDragDrop}}</small>
+        {{else}}
+          <small>{{this.helpTextFileNotSupported}}</small>
+        {{/if}}
+      </label>
+    {{else if queue.files.length}}
+      {{this.uploadingMsg}}
+    {{else}}
+      <label class="upload__element__label">
+        <i class="vi vi-paperclip"></i>
+        <span>{{this.title}}</span>
+        {{#if dropzone.supported}}
+          <small>{{this.helpTextDragDrop}}</small>
+        {{/if}}
+        <FileUpload @name={{this.queueName}} @accept={{this.args.accept}} @multiple={{@multiple}} @onfileadd={{this.upload}}>
+        </FileUpload>
+      </label>
+    {{/if}}
+  </FileDropzone>
+  {{#if this.hasErrors}}
+    <WuAlert @isError={{true}}>
+      {{#each this.uploadErrorData as |data|}}
+        <li> Fout bij het opladen van {{data.filename}}.
+          {{#if data.error}}
+            (Foutmelding: {{data.error}})
+          {{/if}}
+        </li>
+      {{/each}}
+    </WuAlert>
+  {{/if}}
+</div>
