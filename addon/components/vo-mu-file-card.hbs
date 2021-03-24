@@ -1,18 +1,23 @@
-{{#if active}}
-  <a class="upload__files__close link--icon--close" {{action "delete"}}>
-    <span class="u-visually-hidden">Verwijderen</span>
-  </a>
-{{/if}}
-<div class="upload__files__container">
-  <div class="upload__file">
-    <p class="upload__file__name">{{file.filename}}
-      <span class="upload__file__size">({{file.humanReadableSize}})</span>
-    </p>
-    {{#if downloadable}}
-      <small>
-        <a class="link--icon" href="{{file.downloadLink}}" download="{{file.filename}}">
-          <i class="fa fa-cloud-download"></i>Download bestand</a>
-      </small>
-    {{/if}}
+<div class="upload__files upload__files--has-files">
+  {{#if this.active}}
+    <button
+      class="upload__files__close link--icon--close"
+      type="button"
+      {{on "click" this.delete}}>
+      <span class="u-visually-hidden">Verwijderen</span>
+    </button>
+  {{/if}}
+  <div class="upload__files__container">
+    <div class="upload__file">
+      <p class="upload__file__name">{{@file.filename}}
+        <span class="upload__file__size">({{@file.humanReadableSize}})</span>
+      </p>
+      {{#if this.downloadable}}
+        <small>
+          <a class="link--icon" href="{{@file.downloadLink}}" download="{{@file.filename}}">
+            <i class="fa fa-cloud-download"></i>Download bestand</a>
+        </small>
+      {{/if}}
+    </div>
   </div>
 </div>
