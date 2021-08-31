@@ -18,7 +18,7 @@
         {{#if dropzone.supported}}
           <small>{{this.helpTextDragDrop}}</small>
         {{/if}}
-        <FileUpload @name={{this.queueName}} @accept={{this.args.accept}} @multiple={{@multiple}} @onfileadd={{this.upload}}>
+        <FileUpload @name={{this.queueName}} @accept={{@accept}} @multiple={{@multiple}} @onfileadd={{this.upload}}>
         </FileUpload>
       </label>
     {{/if}}

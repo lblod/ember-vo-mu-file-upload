@@ -3,7 +3,7 @@ import { tracked } from '@glimmer/tracking';
 import Component from '@glimmer/component';
 import { inject as service } from '@ember/service';
 import { task } from 'ember-concurrency';
-import { v4 } from "ember-uuid";
+import { v4 } from 'ember-uuid';
 
 export default class VoMuFileDropzoneComponent extends Component {
   @service() store;
@@ -16,15 +16,21 @@ export default class VoMuFileDropzoneComponent extends Component {
   }
 
   get title() {
-    return this.args.title || "Bestanden toevoegen";
+    return this.args.title || 'Bestanden toevoegen';
   }
 
   get helpTextDragDrop() {
-    return this.args.helpTextDragDrop || "Sleep de bestanden naar hier om toe te voegen";
+    return (
+      this.args.helpTextDragDrop ||
+      'Sleep de bestanden naar hier om toe te voegen'
+    );
   }
 
   get helpTextFileNotSupported() {
-    return this.args.helpTextFileNotSupported || 'Dit bestandsformaat wordt niet ondersteund.';
+    return (
+      this.args.helpTextFileNotSupported ||
+      'Dit bestandsformaat wordt niet ondersteund.'
+    );
   }
 
   get endPoint() {
@@ -54,11 +60,15 @@ export default class VoMuFileDropzoneComponent extends Component {
   *uploadFileTask(file) {
     this.notifyQueueUpdate();
     try {
-      const response = yield file.upload(this.endPoint, { 'Content-Type': 'multipart/form-data' });
-      const uploadedFile = yield this.store.findRecord(this.modelName, response.body.data.id);
+      const response = yield file.upload(this.endPoint, {
+        'Content-Type': 'multipart/form-data',
+      });
+      const uploadedFile = yield this.store.findRecord(
+        this.modelName,
+        response.body.data.id
+      );
       return uploadedFile;
-    }
-    catch (e) {
+    } catch (e) {
       this.uploadErrorData = [...this.uploadErrorData, { filename: file.name }];
       this.removeFileFromQueue(file);
       return null;
@@ -70,8 +80,13 @@ export default class VoMuFileDropzoneComponent extends Component {
     // non-side-effects.  The name doesn't suggest this will yield a
     // state change.
     if (file.size > this.maxFileSizeMB * Math.pow(1024, 2)) {
-      this.uploadErrorData = [...this.uploadErrorData,
-      { filename: file.name, error: `Bestand is te groot (max ${this.maxFileSizeMB} MB)` }];
+      this.uploadErrorData = [
+        ...this.uploadErrorData,
+        {
+          filename: file.name,
+          error: `Bestand is te groot (max ${this.maxFileSizeMB} MB)`,
+        },
+      ];
       this.removeFileFromQueue(file);
       return true;
     }
@@ -94,12 +109,14 @@ export default class VoMuFileDropzoneComponent extends Component {
   queueName = `${v4()}-fileUploads`;
 
   removeFileFromQueue(file) {
-    let q = this.fileQueue.queues.find(q => q.name === this.queueName);
+    let q = this.fileQueue.queues.find((q) => q.name === this.queueName);
     q.remove(file);
   }
 
   calculateQueueInfo() {
-    const filesQueueInfo = { isQueueEmpty: this.uploadFileTask.state === 'idle' };
+    const filesQueueInfo = {
+      isQueueEmpty: this.uploadFileTask.state === 'idle',
+    };
     return filesQueueInfo;
   }
 
@@ -114,8 +131,7 @@ export default class VoMuFileDropzoneComponent extends Component {
   ////////
   @action
   async upload(file) {
-    if (this.hasValidationErrors(file))
-      return;
+    if (this.hasValidationErrors(file)) return;
     let uploadedFile = await this.uploadFileTask.perform(file);
 
     this.notifyQueueUpdate();
