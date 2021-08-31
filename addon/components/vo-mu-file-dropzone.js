@@ -28,9 +28,12 @@ export default class VoMuFileDropzoneComponent extends Component {
   }
 
   get endPoint() {
-    return this.args.endPoint || '/file-service/files';
+    return this.args.endPoint || '/files';
   }
 
+  get modelName() {
+    return this.args.modelName || 'file';
+  }
   get maxFileSizeMB() {
     return this.args.maxFileSizeMB || 20;
   }
@@ -52,7 +55,7 @@ export default class VoMuFileDropzoneComponent extends Component {
     this.notifyQueueUpdate();
     try {
       const response = yield file.upload(this.endPoint, { 'Content-Type': 'multipart/form-data' });
-      const uploadedFile = yield this.store.findRecord('file', response.body.data.id);
+      const uploadedFile = yield this.store.findRecord(this.modelName, response.body.data.id);
       return uploadedFile;
     }
     catch (e) {
