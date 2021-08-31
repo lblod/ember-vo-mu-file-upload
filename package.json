@@ -1,6 +1,6 @@
 {
   "name": "@lblod/ember-vo-mu-file-upload",
-  "version": "0.6.2",
+  "version": "0.7.0",
   "description": "A VO-webuniversum version of mu-file-upload",
   "keywords": [
     "ember-addon"
